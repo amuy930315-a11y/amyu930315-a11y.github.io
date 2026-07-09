@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>📒 我的記帳本</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'PingFang TC', system-ui, sans-serif;
+            background: #f5f7fb;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .app { max-width: 720px; width: 100%; }
+        .app-header { text-align: center; margin-bottom: 24px; }
+        .app-header h1 { font-size: 28px; font-weight: 700; color: #0f172a; }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border: 1px solid #eef2f6;
+        }
+        .stat-label { font-size: 13px; color: #94a3b8; margin-bottom: 6px; }
+        .stat-number { font-size: 26px; font-weight: 700; }
+        .stat-number.income { color: #22c55e; }
+        .stat-number.expense { color: #ef4444; }
+        .stat-number.balance { color: #3b82f6; }
+        .form-section, .list-section {
+            background: #fff;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+            border: 1px solid #eef2f6;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .form-group { display: flex; flex-direction: column; gap: 4px; }
+        .form-group.full { grid-column: 1 / -1; }
+        .form-group label { font-size: 13px; font-weight: 500; color: #475569; }
+        .form-group input, .form-group select {
+            padding: 10px 14px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 15px;
+            background: #f8fafc;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+        }
+        .btn {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-primary { background: #3b82f6; color: #fff; }
+        .btn-primary:hover { background: #2563eb; }
+        .btn-secondary { background: #eef2f6; color: #475569; }
+        .btn-danger { background: #ef4444; color: #fff; }
+        .btn-sm { padding: 6px 14px; font-size: 13px; }
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .toolbar select { padding: 6px 12px; border-radius: 8px; border: 1px solid #e2e8f0; }
+        .record-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .record-item:last-child { border-bottom: none; }
+        .record-left { display: flex; align-items: center; gap: 12px; flex: 1; }
+        .record-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        .record-icon.income { background: #dcfce7; }
+        .record-icon.expense { background: #fee2e2; }
+        .record-category { font-weight: 600; }
+        .record-note { font-size: 13px; color: #94a3b8; margin-left: 6px; }
+        .record-date { font-size: 12px; color: #94a3b8; display: block; }
+        .record-amount { font-weight: 700; font-size: 17px; margin-left: 12px; }
+        .record-amount.income { color: #22c55e; }
+        .record-amount.expense { color: #ef4444; }
+        .empty-state { text-align: center; padding: 40px 20px; color: #94a3b8; }
+        .empty-state .emoji { font-size: 48px; display: block; margin-bottom: 12px; }
+        @media (max-width: 600px) {
+            .stats { grid-template-columns: 1fr 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(3px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+        .modal-box {
+            background: #fff;
+            border-radius: 24px;
+            padding: 28px 24px;
+            max-width: 380px;
+            width: 100%;
+            text-align: center;
+        }
+        .modal-actions { display: flex; gap: 12px; margin-top: 16px; }
+        .modal-actions .btn { flex: 1; }
+    </style>
+</head>
+<body>
+<div class="app">
+
+    <header class="app-header">
+        <h1>📒 我的記帳本</h1>
+    </header>
+
+    <section class="stats" id="stats">
+        <div class="stat-card">
+            <div class="stat-label">💰 總收入</div>
+            <div class="stat-number income" id="totalIncome">$0</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">💸 總支出</div>
+            <div class="stat-number expense" id="totalExpense">$0</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">📊 結餘</div>
+            <div class="stat-number balance" id="balance">$0</div>
+        </div>
+    </section>
+
+    <section class="form-section">
+        <h2 style="margin-bottom:16px;">✏️ 新增記錄</h2>
+        <form id="recordForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>金額 *</label>
+                    <input type="number" id="amount" placeholder="0" step="0.01" required />
+                </div>
+                <div class="form-group">
+                    <label>類型 *</label>
+                    <select id="type">
+                        <option value="income">收入</option>
+                        <option value="expense">支出</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>類別 *</label>
+                    <select id="category">
+                        <option value="餐飲">🍜 餐飲</option>
+                        <option value="購物">🛍️ 購物</option>
+                        <option value="交通">🚗 交通</option>
+                        <option value="娛樂">🎮 娛樂</option>
+                        <option value="醫療">🏥 醫療</option>
+                        <option value="教育">📚 教育</option>
+                        <option value="薪資">💼 薪資</option>
+                        <option value="其他">📦 其他</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>日期 *</label>
+                    <input type="date" id="date" required />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group full">
+                    <label>備註</label>
+                    <input type="text" id="note" placeholder="例如：午餐、買書…" maxlength="50" />
+                </div>
+            </div>
+            <div class="form-actions" style="display:flex; gap:12px; margin-top:8px;">
+                <button type="submit" class="btn btn-primary">➕ 新增</button>
+                <button type="reset" class="btn btn-secondary">清空</button>
+            </div>
+        </form>
+    </section>
+
+    <section class="list-section">
+        <div class="toolbar">
+            <div>
+                <label>🔍 篩選：</label>
+                <select id="filterCategory">
+                    <option value="all">全部</option>
+                    <option value="餐飲">🍜 餐飲</option>
+                    <option value="購物">🛍️ 購物</option>
+                    <option value="交通">🚗 交通</option>
+                    <option value="娛樂">🎮 娛樂</option>
+                    <option value="醫療">🏥 醫療</option>
+                    <option value="教育">📚 教育</option>
+                    <option value="薪資">💼 薪資</option>
+                    <option value="其他">📦 其他</option>
+                </select>
+            </div>
+            <span id="recordCount">共 0 筆</span>
+        </div>
+        <div id="recordList">
+            <div class="empty-state">
+                <span class="emoji">📭</span>
+                <p>還沒有記錄，開始記帳吧！</p>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<div id="modalContainer"></div>
+
+<script>
+    const STORAGE_KEY = 'my_accounting_records';
+    let records = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    let currentFilter = 'all';
+    let pendingDeleteId = null;
+
+    function save() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+    }
+
+    function formatMoney(v) {
+        return '$' + Number(v).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    function formatDate(d) {
+        if (!d) return '';
+        const p = d.split('-');
+        return p[0] + '/' + p[1] + '/' + p[2];
+    }
+
+    function render() {
+        let inc = 0, exp = 0;
+        records.forEach(r => {
+            if (r.type === 'income') inc += Number(r.amount);
+            else exp += Number(r.amount);
+        });
+        document.getElementById('totalIncome').textContent = formatMoney(inc);
+        document.getElementById('totalExpense').textContent = formatMoney(exp);
+        document.getElementById('balance').textContent = formatMoney(inc - exp);
+
+        let filtered = records.filter(r => currentFilter === 'all' || r.category === currentFilter);
+        filtered.sort((a,b) => (a.date < b.date ? 1 : -1));
+        document.getElementById('recordCount').textContent = '共 ' + filtered.length + ' 筆';
+
+        const list = document.getElementById('recordList');
+        if (filtered.length === 0) {
+            list.innerHTML = `<div class="empty-state"><span class="emoji">📭</span><p>${currentFilter === 'all' ? '還沒有記錄' : '沒有符合的記錄'}</p></div>`;
+            return;
+        }
+        let html = '';
+        filtered.forEach(r => {
+            const isInc = r.type === 'income';
+            const cls = isInc ? 'income' : 'expense';
+            const icon = isInc ? '📈' : '📉';
+            html += `
+                <div class="record-item" data-id="${r.id}">
+                    <div class="record-left">
+                        <div class="record-icon ${cls}">${icon}</div>
+                        <div>
+                            <span class="record-category">${r.category}</span>
+                            ${r.note ? `<span class="record-note">${r.note}</span>` : ''}
+                            <span class="record-date">${formatDate(r.date)}</span>
+                        </div>
+                    </div>
+                    <div class="record-amount ${cls}">${formatMoney(r.amount)}</div>
+                    <button class="btn btn-danger btn-sm delete-btn" data-id="${r.id}">🗑️</button>
+                </div>
+            `;
+        });
+        list.innerHTML = html;
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', () => showDeleteModal(btn.dataset.id));
+        });
+    }
+
+    function showDeleteModal(id) {
+        pendingDeleteId = id;
+        const r = records.find(item => item.id === id);
+        if (!r) return;
+        document.getElementById('modalContainer').innerHTML = `
+            <div class="modal-overlay" id="deleteModal">
+                <div class="modal-box">
+                    <h3>⚠️ 刪除記錄</h3>
+                    <p>確定要刪除 <strong>${r.category}</strong> 的 ${r.type === 'income' ? '收入' : '支出'} ${formatMoney(r.amount)} 嗎？</p>
+                    <div class="modal-actions">
+                        <button class="btn btn-secondary" id="cancelDelete">取消</button>
+                        <button class="btn btn-danger" id="confirmDelete">確認刪除</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.getElementById('cancelDelete').addEventListener('click', () => {
+            document.getElementById('deleteModal').remove();
+            pendingDeleteId = null;
+        });
+        document.getElementById('confirmDelete').addEventListener('click', () => {
+            if (pendingDeleteId) {
+                records = records.filter(item => item.id !== pendingDeleteId);
+                save();
+                render();
+                document.getElementById('deleteModal').remove();
+                pendingDeleteId = null;
+            }
+        });
+    }
+
+    document.getElementById('recordForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const amount = parseFloat(document.getElementById('amount').value);
+        const type = document.getElementById('type').value;
+        const category = document.getElementById('category').value;
+        const date = document.getElementById('date').value;
+        const note = document.getElementById('note').value.trim();
+        if (!amount || amount <= 0) { alert('請輸入有效金額'); return; }
+        if (!date) { alert('請選擇日期'); return; }
+        records.push({
+            id: Date.now().toString(36) + Math.random().toString(36).slice(2,6),
+            amount, type, category, date, note
+        });
+        save();
+        render();
+        this.reset();
+        document.getElementById('date').value = new Date().toISOString().slice(0,10);
+        document.getElementById('amount').focus();
+    });
+
+    document.getElementById('filterCategory').addEventListener('change', function() {
+        currentFilter = this.value;
+        render();
+    });
+
+    document.getElementById('date').value = new Date().toISOString().slice(0,10);
+    render();
+</script>
+</body>
+</html>
