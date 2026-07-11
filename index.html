@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🧳 獨旅檔案 · 深夜版</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Serif TC', sans-serif;
+            background-color: #1A1614;
+            color: #F0E8E0;
+            padding: 0 20px;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px 0 20px;
+        }
+
+        /* ---------- 導覽列 ---------- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            color: #F0E8E0;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: #C28A5C;
+            font-weight: 300;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #A8988A;
+            margin-left: 32px;
+            font-size: 16px;
+            font-weight: 400;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #C28A5C;
+        }
+
+        .nav-links a::after {
+            content: "·";
+            position: absolute;
+            right: -20px;
+            color: #3D322C;
+        }
+
+        .nav-links a:last-child::after {
+            content: "";
+        }
+
+        .nav-links .filter-link {
+            color: #C28A5C;
+            font-weight: 600;
+        }
+
+        /* ---------- 封面 ---------- */
+        .hero {
+            background-image: url('https://cdn.phototourl.com/member/2026-07-10-a8799293-7c81-4805-8ec2-32c1ddb83a66.png');
+            background-size: cover;
+            background-position: center;
+            border-radius: 32px;
+            padding: 70px 50px;
+            margin-bottom: 50px;
+            position: relative;
+            isolation: isolate;
+            min-height: 320px;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(20, 16, 14, 0.85) 0%, rgba(30, 25, 22, 0.4) 100%);
+            border-radius: 32px;
+            z-index: -1;
+        }
+
+        .hero-text {
+            max-width: 600px;
+        }
+
+        .hero-text h1 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #FFFFFF;
+            letter-spacing: 1px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .hero-text h1 span {
+            color: #C28A5C;
+        }
+
+        .hero-text p {
+            font-size: 18px;
+            color: #D4C8BC;
+            margin-top: 12px;
+            font-weight: 300;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .hero-text .tag {
+            display: inline-block;
+            background: rgba(194, 138, 92, 0.2);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(194, 138, 92, 0.3);
+            padding: 6px 24px;
+            border-radius: 40px;
+            font-size: 14px;
+            color: #C28A5C;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+
+        /* ---------- 關於我（無背景照片，純色） ---------- */
+        .about-wrapper {
+            background-color: #1A1614;
+            background-image: none;
+            border-radius: 32px;
+            padding: 60px 50px;
+            margin-bottom: 50px;
+            position: relative;
+            isolation: isolate;
+        }
+
+        .about-section {
+            background: rgba(44, 37, 32, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 40px 44px;
+            display: flex;
+            gap: 50px;
+            align-items: center;
+            flex-wrap: wrap;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .about-avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background-color: #2C2520;
+            background-image: url('https://cdn.phototourl.com/member/2026-07-10-c0909a9c-70e2-4e9c-8ee4-8c7daf3240d0.png');
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+            border: 3px solid rgba(194, 138, 92, 0.4);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .about-text h2 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 14px;
+            color: #F0E8E0;
+        }
+
+        .about-text h2 span {
+            color: #C28A5C;
+        }
+
+        .about-text p {
+            color: #D4C8BC;
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+
+        .about-text .badge {
+            display: inline-block;
+            background: rgba(194, 138, 92, 0.15);
+            border: 1px solid rgba(194, 138, 92, 0.2);
+            padding: 4px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            color: #C28A5C;
+            margin-right: 8px;
+            margin-top: 6px;
+            font-weight: 400;
+        }
+
+        /* ---------- 區塊標題 ---------- */
+        .section-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 50px 0 30px;
+            color: #F0E8E0;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .section-title span {
+            color: #C28A5C;
+        }
+
+        /* ---------- 照片牆（韓國單卡，置中） ---------- */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            max-width: 400px;
+            margin: 0 auto 10px;
+        }
+
+        .photo-card {
+            background: rgba(44, 37, 32, 0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: transform 0.25s, box-shadow 0.25s;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-6px);<img 
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+            border-color: rgba(194, 138, 92, 0.2);
+        }
+
+        .photo-card img {            
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+            background: #2C2520;
+        }
+
+        .photo-card .info {
+            padding: 20px 22px 26px;
+            flex: 1;
+        }
+
+        .photo-card .info h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #F0E8E0;
+            margin-bottom: 2px;
+        }
+
+        .photo-card .info .meta {
+            font-size: 13px;
+            color: #A8988A;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .photo-card .info p {
+            font-size: 15px;
+            color: #C4B8AC;
+            line-height: 1.6;
+        }
+
+        .photo-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        /* ---------- 玻璃按鈕 ---------- */
+        .story-button-wrapper {
+            display: flex;
+            justify-content: center;
+            padding: 0 0 30px;
+        }
+
+        .glass-btn {
+            display: inline-block;
+            background: rgba(44, 37, 32, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 60px;
+            padding: 16px 48px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #F0E8E0;
+            text-decoration: none;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-btn:hover {
+            background: rgba(194, 138, 92, 0.25);
+            border-color: rgba(194, 138, 92, 0.3);
+            transform: scale(1.03);
+            box-shadow: 0 12px 40px rgba(194, 138, 92, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+        }
+
+        .glass-btn .arrow {
+            display: inline-block;
+            margin-left: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .glass-btn:hover .arrow {
+            transform: translateX(4px);
+        }
+
+        /* ---------- 分隔線 ---------- */
+        .divider {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            margin: 40px 0 30px;
+        }
+
+        /* ---------- 時間軸 ---------- */
+        .timeline {
+            margin-top: 10px;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 30px;
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            align-items: flex-start;
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .timeline-year {
+            font-weight: 700;
+            font-size: 22px;
+            color: #C28A5C;
+            min-width: 120px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .timeline-content h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #F0E8E0;
+            margin-bottom: 4px;
+        }
+
+        .timeline-content p {
+            color: #B8AAA0;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* ---------- 頁尾 ---------- */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: #7A6A5E;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #C28A5C;
+            text-decoration: none;
+        }
+
+        /* ---------- 手機 ---------- */
+        @media (max-width: 700px) {
+            .hero {
+                padding: 30px 24px;
+                min-height: 200px;
+            }
+            .hero-text h1 {
+                font-size: 30px;
+            }
+            .about-wrapper {
+                padding: 24px 16px;
+            }
+            .about-section {
+                padding: 24px;
+                flex-direction: column;
+                text-align: center;
+            }
+            .about-avatar {
+                width: 100px;
+                height: 100px;
+            }
+            .navbar {
+                flex-direction: column;
+                align-items: center;
+            }
+            .nav-links a {
+                margin: 0 14px;
+                font-size: 15px;
+            }
+            .nav-links a::after {
+                right: -16px;
+            }
+            .timeline-item {
+                flex-direction: column;
+                gap: 4px;
+            }
+            .timeline-year {
+                min-width: auto;
+            }
+            .glass-btn {
+                padding: 12px 28px;
+                font-size: 15px;
+            }
+            .photo-grid {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ========== 導覽列 ========== -->
+        <nav class="navbar">
+            <div class="logo"> <span>·</span> 我的獨旅日記</div>
+            <div class="nav-links">
+                <a href="#about">關於我</a>
+                <a href="#photos">國家</a>
+                <a href="#" class="filter-link">🎨 濾鏡</a>
+                <a href="#stories">故事</a>
+            </div>
+        </nav>
+
+        <!-- ========== 封面 ========== -->
+        <div class="hero">
+            <div class="hero-text">
+                <p>喜歡在深夜整理照片，把旅行的溫度藏在色調裡。</p>
+                <div class="tag">🌙 1 個國家 · 5 座城市 · 一些故事</div>
+            </div>
+        </div>
+
+        <!-- ========== 關於我 ========== -->
+        <div class="about-wrapper" id="about">
+            <div class="about-section">
+                <div class="about-avatar"></div>
+                <div class="about-text">
+                    <h2>關於 <span>我</span></h2>
+                    <p>
+                        這裡只是想分享自己一個人到了一個陌生國家旅遊的紀錄以及我是如何出發的。                    </p>
+                    <p>
+                        我不追求網美打卡點，更喜歡在巷弄裡迷路，在陌生城市裡坐著邊喝酒邊感受著看這裡人的生活腳步。這裡紀錄了我一直想做的事情，以及我為每張照片調配的色調記憶。
+                    </p>
+                    <div>
+                        <span class="badge">📷 攝影</span>
+                        <span class="badge">✈️ 旅遊</span>
+                        <span class="badge">🎨 濾鏡創作</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== 國家（只有韓國） ========== -->
+        <h2 class="section-title" id="photos">🌏 國家</h2>
+        <div class="photo-grid">
+            <div class="photo-card">
+                <img src="https://cdn.phototourl.com/member/2026-07-11-fd79d868-2484-4a14-b0cc-fcd074e783dd.png" alt="韓國">
+                <div class="info">
+                    <h3>🇰🇷 韓國</h3>
+                    <span class="meta">2026 4月 春天</span>
+                    <p>從釜山到首爾，六天的獨旅，每座城市都有自己的氣味與節奏。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 韓國秘訣按鈕（卡片正下方置中） -->
+        <div class="story-button-wrapper">
+            <a href="korea-tips.html" class="glass-btn">
+                🇰🇷 我的韓國獨旅小秘訣
+                <span class="arrow">→</span>
+            </a>
+        </div>
+        <!-- ========== 頁尾 ========== -->
+        <div class="footer">
+
+       
+            <!-- ========== 成長故事 ========== -->
+        <h2 class="section-title" id="story"> 成長 <span>故事</span></h2>
+
+        <div style="max-width: 700px; margin: 0 auto; text-align: center;">
+
+            <div style="padding: 20px 30px;">
+                <div style="font-size: 48px; margin-bottom: 10px;"></div>
+                <h3 style="font-size: 20px; color: #C28A5C; margin-bottom: 8px; font-weight: 600;">16歲 · 自己調濾鏡</h3>
+                <p style="color: #D4C8BC; font-size: 16px; line-height: 1.8; margin-bottom: 0;">
+                    16 歲開始探索調色，只因為熱愛攝影與色彩。<br />
+                    如今，希望把這份熱愛化成濾鏡，分享給每一位喜歡用照片記錄生活的人。
+                </p>
+            </div>
+
+            <div style="padding: 20px 30px;">
+                <div style="font-size: 48px; margin-bottom: 10px;"></div>
+                <h3 style="font-size: 20px; color: #C28A5C; margin-bottom: 8px; font-weight: 600;">17-18歲 · 社群經營 IG</h3>
+                <p style="color: #D4C8BC; font-size: 16px; line-height: 1.8; margin-bottom: 0;">
+                    自己開了一個分享社群，INSTAGRAM<br />
+                    開社群主要是因為想分享我想分享的，濾鏡 / 貼圖 / 桌布及一些合作抽獎活動。
+                </p>
+            </div>
+
+            <div style="padding: 20px 30px;">
+                <div style="font-size: 48px; margin-bottom: 10px;"></div>
+                <h3 style="font-size: 20px; color: #C28A5C; margin-bottom: 8px; font-weight: 600;">21歲 · 創心理健康THREADS</h3>
+                <p style="color: #D4C8BC; font-size: 16px; line-height: 1.8; margin-bottom: 0;">
+                    自己開了一個情緒患者共鳴社群，THREADS<br />
+                    從自己的經歷出發，分享情緒、成長與生活，希望讓有相似感受的人找到共鳴。
+                </p>
+            </div>
+
+            <div style="padding: 20px 30px;">
+                <div style="font-size: 48px; margin-bottom: 10px;"></div>
+                <h3 style="font-size: 20px; color: #C28A5C; margin-bottom: 8px; font-weight: 600;">22歲 · 獨旅</h3>
+                <p style="color: #D4C8BC; font-size: 16px; line-height: 1.8; margin-bottom: 0;">
+                    為了不讓自己關起來，選擇逃離<br />
+                    因為生病，生活曾讓我感到窒息。所以我選擇一個人逃離，到一個沒有人認識我的地方，重新找回快樂的自己。
+                </p>
+            </div>
+
+        </div>
+
+</body>
+</html>
