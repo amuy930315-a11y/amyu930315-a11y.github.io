@@ -263,6 +263,46 @@
             text-decoration: none;
         }
 
+        /* ===== 燈箱 (Lightbox) ===== */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            padding: 30px;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            animation: zoomIn 0.25s ease;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.85);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
         @media (max-width: 700px) {
             .navbar {
                 flex-direction: column;
@@ -330,39 +370,39 @@
                 </button>
                 <div class="city-gallery">
                     <div class="photo-item">
-                        <img src="https://cdn.phototourl.com/member/2026-07-11-86c13366-511b-48f1-82d3-c02fae5424fc.png" alt="釜山1" />
+                        <img src="https://cdn.phototourl.com/member/2026-07-11-86c13366-511b-48f1-82d3-c02fae5424fc.png" alt="釜山1" onclick="openLightbox(this)" />
                         <div class="photo-caption">釜山機場往捷運入口</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://cdn.phototourl.com/member/2026-07-11-7fb39a60-6053-487c-8d9c-974c3aaf63c0.png" alt="釜山2" />
+                        <img src="https://cdn.phototourl.com/member/2026-07-11-7fb39a60-6053-487c-8d9c-974c3aaf63c0.png" alt="釜山2" onclick="openLightbox(this)" />
                         <div class="photo-caption">住所樓下的街道</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://cdn.phototourl.com/member/2026-07-11-b5701f8f-5f68-4988-8d23-a5a651f4e96b.png" alt="釜山3" />
+                        <img src="https://cdn.phototourl.com/member/2026-07-11-b5701f8f-5f68-4988-8d23-a5a651f4e96b.png" alt="釜山3" onclick="openLightbox(this)" />
                         <div class="photo-caption">走在路上覺得很美 把它拍下來</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://cdn.phototourl.com/member/2026-07-11-5830598f-8868-44f6-925e-eda23baaab70.png" alt="釜山4" />
+                        <img src="https://cdn.phototourl.com/member/2026-07-11-5830598f-8868-44f6-925e-eda23baaab70.png" alt="釜山4" onclick="openLightbox(this)" />
                         <div class="photo-caption">很美的花店</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://cdn.phototourl.com/member/2026-07-11-502f46e8-ff93-4a41-b28c-bd174903a683.png" alt="釜山5" />
+                        <img src="https://cdn.phototourl.com/member/2026-07-11-502f46e8-ff93-4a41-b28c-bd174903a683.png" alt="釜山5" onclick="openLightbox(this)" />
                         <div class="photo-caption">廣安大橋</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://cdn.phototourl.com/member/2026-07-11-84b61b19-21ec-4199-8ab2-d4a043d35f47.png" alt="釜山6" />
+                        <img src="https://cdn.phototourl.com/member/2026-07-11-84b61b19-21ec-4199-8ab2-d4a043d35f47.png" alt="釜山6" onclick="openLightbox(this)" />
                         <div class="photo-caption">札嘎其市場</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://cdn.phototourl.com/member/2026-07-11-84381f93-cd0a-437e-b0d2-6a65cee97b8b.jpg" alt="釜山7" />
+                        <img src="https://cdn.phototourl.com/member/2026-07-11-84381f93-cd0a-437e-b0d2-6a65cee97b8b.jpg" alt="釜山7" onclick="openLightbox(this)" />
                         <div class="photo-caption">搭巴士到首爾，禮拜五票都買不到了</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://www.image2url.com/r2/default/images/1783774590547-21c75cf9-c635-46ea-a1a9-20205511a228.png" alt="釜山8" />
+                        <img src="https://www.image2url.com/r2/default/images/1783774590547-21c75cf9-c635-46ea-a1a9-20205511a228.png" alt="釜山8" onclick="openLightbox(this)" />
                         <div class="photo-caption">聽說是很有名的盜版店 但不確定是不是真的</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://cdn.phototourl.com/member/2026-07-11-887a7507-7b38-4dfa-be1a-9db3468015d3.png" alt="釜山9" />
+                        <img src="https://cdn.phototourl.com/member/2026-07-11-887a7507-7b38-4dfa-be1a-9db3468015d3.png" alt="釜山9" onclick="openLightbox(this)" />
                         <div class="photo-caption">一個人吃晚餐</div>
                     </div>
                 </div>
@@ -382,35 +422,35 @@
                 </button>
                 <div class="city-gallery">
                     <div class="photo-item">
-                        <img src="https://www.image2url.com/r2/default/images/1783776018264-9fc2c5b9-ffbb-42e4-a7e9-c5aaa3af54aa.png" alt="首爾1" />
+                        <img src="https://www.image2url.com/r2/default/images/1783776018264-9fc2c5b9-ffbb-42e4-a7e9-c5aaa3af54aa.png" alt="首爾1" onclick="openLightbox(this)" />
                         <div class="photo-caption">國立現代美術館 국립현대미술관</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://www.image2url.com/r2/default/images/1783776459702-c8012e22-00bf-4dd9-bee1-47e71806574e.png" alt="首爾2" />
+                        <img src="https://www.image2url.com/r2/default/images/1783776459702-c8012e22-00bf-4dd9-bee1-47e71806574e.png" alt="首爾2" onclick="openLightbox(this)" />
                         <div class="photo-caption">買明洞爺爺幸運草</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://www.image2url.com/r2/default/images/1783776610378-742ee197-7d72-442f-931b-359f998248d7.png" alt="首爾3" />
+                        <img src="https://www.image2url.com/r2/default/images/1783776610378-742ee197-7d72-442f-931b-359f998248d7.png" alt="首爾3" onclick="openLightbox(this)" />
                         <div class="photo-caption">晚上搭免費接駁上首爾塔，順便看夜景</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://www.image2url.com/r2/default/images/1783776720674-61514d22-5902-4b53-9500-9078180d833a.png" alt="首爾4" />
+                        <img src="https://www.image2url.com/r2/default/images/1783776720674-61514d22-5902-4b53-9500-9078180d833a.png" alt="首爾4" onclick="openLightbox(this)" />
                         <div class="photo-caption">很漂亮，所以拍下來了</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://www.image2url.com/r2/default/images/1783776880924-c373717a-5f29-4eea-bd46-acdb3403aab3.png" alt="首爾5" />
+                        <img src="https://www.image2url.com/r2/default/images/1783776880924-c373717a-5f29-4eea-bd46-acdb3403aab3.png" alt="首爾5" onclick="openLightbox(this)" />
                         <div class="photo-caption">明洞</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://www.image2url.com/r2/default/images/1783776976005-18f61549-5e0a-4cf4-85e3-b727fb11bee4.png" alt="首爾6" />
+                        <img src="https://www.image2url.com/r2/default/images/1783776976005-18f61549-5e0a-4cf4-85e3-b727fb11bee4.png" alt="首爾6" onclick="openLightbox(this)" />
                         <div class="photo-caption">國立民俗博物館</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://www.image2url.com/r2/default/images/1783777585739-5832bc72-f392-4227-91e6-c26dde7632e8.png" alt="首爾7" />
+                        <img src="https://www.image2url.com/r2/default/images/1783777585739-5832bc72-f392-4227-91e6-c26dde7632e8.png" alt="首爾7" onclick="openLightbox(this)" />
                         <div class="photo-caption">KAHI HOUSE（KAHI 한옥）</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://www.image2url.com/r2/default/images/1783839905879-fc61f139-8066-4eec-8455-023ecdce26c3.png" alt="首爾8" />
+                        <img src="https://www.image2url.com/r2/default/images/1783839905879-fc61f139-8066-4eec-8455-023ecdce26c3.png" alt="首爾8" onclick="openLightbox(this)" />
                         <div class="photo-caption">首爾韓屋村</div>
                     </div>
                 </div>
@@ -430,39 +470,39 @@
                 </button>
                 <div class="city-gallery">
                     <div class="photo-item">
-                        <img src="https://cdn.phototourl.com/member/2026-07-10-5b5ce8f4-43f9-488f-b1e6-88edaf512265.png" alt="慶洲1" />
+                        <img src="https://cdn.phototourl.com/member/2026-07-10-5b5ce8f4-43f9-488f-b1e6-88edaf512265.png" alt="慶洲1" onclick="openLightbox(this)" />
                         <div class="photo-caption">慶洲校村·月精橋 晚上去超美</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://cdn.phototourl.com/member/2026-07-12-8b89177e-ad71-4b81-bb5e-5bdcf4a7c71f.png" alt="慶洲2" />
+                        <img src="https://cdn.phototourl.com/member/2026-07-12-8b89177e-ad71-4b81-bb5e-5bdcf4a7c71f.png" alt="慶洲2" onclick="openLightbox(this)" />
                         <div class="photo-caption">皇理團路街上</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://cdn.phototourl.com/member/2026-07-12-d883ac0e-1de8-4eef-9b86-5e77556ea4f1.png" alt="慶洲3" />
+                        <img src="https://cdn.phototourl.com/member/2026-07-12-d883ac0e-1de8-4eef-9b86-5e77556ea4f1.png" alt="慶洲3" onclick="openLightbox(this)" />
                         <div class="photo-caption">在皇理團路抽幸運籤</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://cdn.phototourl.com/member/2026-07-12-0f600e3e-455e-40e0-ba39-f4457fdf508d.png" alt="慶洲4" />
+                        <img src="https://cdn.phototourl.com/member/2026-07-12-0f600e3e-455e-40e0-ba39-f4457fdf508d.png" alt="慶洲4" onclick="openLightbox(this)" />
                         <div class="photo-caption">一間咖哩店外很漂亮的設計</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://cdn.phototourl.com/member/2026-07-12-f0205b0c-bbc4-4db3-8cf3-3a6de8e5d55d.png" alt="慶洲5" />
+                        <img src="https://cdn.phototourl.com/member/2026-07-12-f0205b0c-bbc4-4db3-8cf3-3a6de8e5d55d.png" alt="慶洲5" onclick="openLightbox(this)" />
                         <div class="photo-caption">很特別的 olive young</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://cdn.phototourl.com/member/2026-07-12-771219a6-9570-4663-a4b1-f607a3655ce3.png" alt="慶洲6" />
+                        <img src="https://cdn.phototourl.com/member/2026-07-12-771219a6-9570-4663-a4b1-f607a3655ce3.png" alt="慶洲6" onclick="openLightbox(this)" />
                         <div class="photo-caption">很好吃的炸玉米</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://cdn.phototourl.com/member/2026-07-12-98f4fd4e-b173-4c19-a12b-ed73438dad7f.png" alt="慶洲7" />
+                        <img src="https://cdn.phototourl.com/member/2026-07-12-98f4fd4e-b173-4c19-a12b-ed73438dad7f.png" alt="慶洲7" onclick="openLightbox(this)" />
                         <div class="photo-caption">走路太累，找一間咖啡廳休息</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://cdn.phototourl.com/member/2026-07-12-9e248739-9da2-4fd7-8cf2-2b1a576610da.png" alt="慶洲8" />
+                        <img src="https://cdn.phototourl.com/member/2026-07-12-9e248739-9da2-4fd7-8cf2-2b1a576610da.png" alt="慶洲8" onclick="openLightbox(this)" />
                         <div class="photo-caption">午餐吃咖哩飯</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://cdn.phototourl.com/member/2026-07-12-1029b51b-bbd0-413f-8817-726a95f0f4d9.png" alt="慶洲9" />
+                        <img src="https://cdn.phototourl.com/member/2026-07-12-1029b51b-bbd0-413f-8817-726a95f0f4d9.png" alt="慶洲9" onclick="openLightbox(this)" />
                         <div class="photo-caption">一個人騎腳踏車，很安靜</div>
                     </div>
                 </div>
@@ -482,23 +522,23 @@
                 </button>
                 <div class="city-gallery">
                     <div class="photo-item">
-                        <img src="https://cdn.phototourl.com/member/2026-07-12-5cefb719-3eaf-44e2-a22f-9c4a2edd29aa.png" alt="蔚山1" />
+                        <img src="https://cdn.phototourl.com/member/2026-07-12-5cefb719-3eaf-44e2-a22f-9c4a2edd29aa.png" alt="蔚山1" onclick="openLightbox(this)" />
                         <div class="photo-caption">這張照片適合做語錄</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://www.image2url.com/r2/default/images/1783842772526-6288827a-18a0-4441-9603-ff6b01752621.png" alt="蔚山2" />
+                        <img src="https://www.image2url.com/r2/default/images/1783842772526-6288827a-18a0-4441-9603-ff6b01752621.png" alt="蔚山2" onclick="openLightbox(this)" />
                         <div class="photo-caption">只有單線道的吊橋</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://www.image2url.com/r2/default/images/1783842753570-f97c9cd1-1781-462b-9995-5e3109e3b460.png" alt="蔚山3" />
+                        <img src="https://www.image2url.com/r2/default/images/1783842753570-f97c9cd1-1781-462b-9995-5e3109e3b460.png" alt="蔚山3" onclick="openLightbox(this)" />
                         <div class="photo-caption">很安靜的地方</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://www.image2url.com/r2/default/images/1783842739708-9a5b43de-b123-464a-a29a-603331299aa3.png" alt="蔚山4" />
+                        <img src="https://www.image2url.com/r2/default/images/1783842739708-9a5b43de-b123-464a-a29a-603331299aa3.png" alt="蔚山4" onclick="openLightbox(this)" />
                         <div class="photo-caption">器具都有的公園健身區</div>
                     </div>
                     <div class="photo-item">
-                        <img src="https://www.image2url.com/r2/default/images/1783842723871-a56d79d8-6260-46e3-a54d-61e69fef138f.png" alt="蔚山5" />
+                        <img src="https://www.image2url.com/r2/default/images/1783842723871-a56d79d8-6260-46e3-a54d-61e69fef138f.png" alt="蔚山5" onclick="openLightbox(this)" />
                         <div class="photo-caption">海對面是座城市</div>
                     </div>
                 </div>
@@ -517,6 +557,11 @@
             </p>
         </div>
 
+    </div>
+
+    <!-- ===== 燈箱 HTML ===== -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <img id="lightboxImg" src="" alt="放大檢視" />
     </div>
 
     <script>
@@ -554,6 +599,25 @@
                 targetGallery.scrollBy({ left: scrollAmount, behavior: 'smooth' });
                 e.preventDefault();
             }
+        });
+
+        // ===== 燈箱功能 =====
+        function openLightbox(imgElement) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            lightboxImg.src = imgElement.src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
         });
     </script>
 
