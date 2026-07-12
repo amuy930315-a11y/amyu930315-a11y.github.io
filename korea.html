@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🇰🇷 韓國 · 獨旅檔案</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Serif TC', sans-serif;
+            background-color: #1A1614;
+            color: #F0E8E0;
+            padding: 0 20px;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 0 20px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            color: #F0E8E0;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: #C28A5C;
+            font-weight: 300;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #A8988A;
+            margin-left: 32px;
+            font-size: 16px;
+            font-weight: 400;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #C28A5C;
+        }
+
+        .nav-links a::after {
+            content: "·";
+            position: absolute;
+            right: -20px;
+            color: #3D322C;
+        }
+
+        .nav-links a:last-child::after {
+            content: "";
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-header h1 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #F0E8E0;
+        }
+
+        .page-header h1 span {
+            color: #C28A5C;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            color: #A8988A;
+            margin-top: 8px;
+        }
+
+        .city-block {
+            margin-bottom: 50px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-bottom: 40px;
+        }
+
+        .city-block:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .city-block .city-name {
+            font-size: 26px;
+            font-weight: 700;
+            color: #C28A5C;
+            margin-bottom: 6px;
+        }
+
+        .city-block .city-name .emoji {
+            margin-right: 8px;
+        }
+
+        .city-block .city-desc {
+            color: #C4B8AC;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 16px;
+            max-width: 700px;
+        }
+
+        .gallery-wrapper {
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .city-gallery {
+            display: flex;
+            gap: 14px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 8px 4px 12px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+        }
+
+        .city-gallery::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .city-gallery::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .city-gallery::-webkit-scrollbar-thumb {
+            background: #C28A5C;
+            border-radius: 10px;
+        }
+
+        .city-gallery .photo-item {
+            flex: 0 0 auto;
+            width: 260px;
+            scroll-snap-align: start;
+        }
+
+        .city-gallery .photo-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: transform 0.25s;
+            cursor: pointer;
+            display: block;
+        }
+
+        .city-gallery .photo-item img:hover {
+            transform: scale(1.03);
+        }
+
+        .city-gallery .photo-item .photo-caption {
+            color: #A8988A;
+            font-size: 13px;
+            text-align: center;
+            margin-top: 6px;
+            line-height: 1.4;
+            padding: 0 4px;
+        }
+
+        .gallery-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            color: #FFFFFF;
+            user-select: none;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-btn:hover {
+            background: rgba(194, 138, 92, 0.3);
+            border-color: rgba(194, 138, 92, 0.4);
+            transform: translateY(-50%) scale(1.08);
+        }
+
+        .gallery-btn.left { left: 2px; }
+        .gallery-btn.right { right: 2px; }
+
+        .gallery-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: #FFFFFF;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 40px;
+        }
+
+        .back-home a {
+            display: inline-block;
+            background: #C28A5C;
+            color: #1A1614;
+            text-decoration: none;
+            padding: 12px 36px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 4px 20px rgba(194, 138, 92, 0.25);
+        }
+
+        .back-home a:hover {
+            background: #D9A87A;
+            transform: scale(1.02);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: #7A6A5E;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #C28A5C;
+            text-decoration: none;
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                flex-direction: column;
+                align-items: center;
+            }
+            .nav-links a {
+                margin: 0 14px;
+                font-size: 15px;
+            }
+            .nav-links a::after {
+                right: -16px;
+            }
+            .page-header h1 {
+                font-size: 30px;
+            }
+            .city-gallery .photo-item {
+                width: 200px;
+            }
+            .city-gallery .photo-item img {
+                height: 140px;
+            }
+            .gallery-btn {
+                width: 34px;
+                height: 34px;
+            }
+            .gallery-btn svg {
+                width: 16px;
+                height: 16px;
+            }
+            .city-block .city-name {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <nav class="navbar">
+            <div class="logo"> <span>·</span> 我的獨旅日記</div>
+            <div class="nav-links">
+                <a href="index.html"> 首頁</a>
+                <a href="index.html#about">關於我</a>
+                <a href="index.html#photos">國家</a>
+                <a href="korea-tips.html">🇰🇷 秘訣</a>
+            </div>
+        </nav>
+
+        <div class="page-header">
+            <h1>🇰🇷 韓國 <span>Korea</span></h1>
+            <p>從釜山到首爾，每座城市都有自己的氣味與節奏。</p>
+        </div>
+
+        <!-- ===== 釜山 ===== -->
+        <div class="city-block">
+            <div class="city-name"><span class="emoji">🌊</span>釜山</div>
+            <p class="city-desc">釜山最著名的海岸線，夕陽時分海面染成金黃色。沿著沙灘散步，可以看見遠處的廣安大橋在夜色中亮起。</p>
+            <div class="gallery-wrapper">
+                <button class="gallery-btn left" onclick="scrollGallery(this, 'left')">
+                    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6" /></svg>
+                </button>
+                <button class="gallery-btn right" onclick="scrollGallery(this, 'right')">
+                    <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18" /></svg>
+                </button>
+                <div class="city-gallery">
+                    <div class="photo-item">
+                        <img src="https://cdn.phototourl.com/member/2026-07-11-86c13366-511b-48f1-82d3-c02fae5424fc.png" alt="釜山1" />
+                        <div class="photo-caption">釜山機場往捷運入口</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://cdn.phototourl.com/member/2026-07-11-7fb39a60-6053-487c-8d9c-974c3aaf63c0.png" alt="釜山2" />
+                        <div class="photo-caption">住所樓下的街道</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://cdn.phototourl.com/member/2026-07-11-b5701f8f-5f68-4988-8d23-a5a651f4e96b.png" alt="釜山3" />
+                        <div class="photo-caption">走在路上覺得很美 把它拍下來</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://cdn.phototourl.com/member/2026-07-11-5830598f-8868-44f6-925e-eda23baaab70.png" alt="釜山4" />
+                        <div class="photo-caption">很美的花店</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://cdn.phototourl.com/member/2026-07-11-502f46e8-ff93-4a41-b28c-bd174903a683.png" alt="釜山5" />
+                        <div class="photo-caption">廣安大橋</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://cdn.phototourl.com/member/2026-07-11-84b61b19-21ec-4199-8ab2-d4a043d35f47.png" alt="釜山6" />
+                        <div class="photo-caption">札嘎其市場</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://cdn.phototourl.com/member/2026-07-11-84381f93-cd0a-437e-b0d2-6a65cee97b8b.jpg" alt="釜山7" />
+                        <div class="photo-caption">搭巴士到首爾，禮拜五票都買不到了</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://www.image2url.com/r2/default/images/1783774590547-21c75cf9-c635-46ea-a1a9-20205511a228.png" alt="釜山8" />
+                        <div class="photo-caption">聽說是很有名的盜版店 但不確定是不是真的</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://cdn.phototourl.com/member/2026-07-11-887a7507-7b38-4dfa-be1a-9db3468015d3.png" alt="釜山9" />
+                        <div class="photo-caption">一個人吃晚餐</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 首爾 ===== -->
+        <div class="city-block">
+            <div class="city-name"><span class="emoji">🗼</span>首爾</div>
+            <p class="city-desc">現代與傳統交織的城市，每個角落都有故事。</p>
+            <div class="gallery-wrapper">
+                <button class="gallery-btn left" onclick="scrollGallery(this, 'left')">
+                    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6" /></svg>
+                </button>
+                <button class="gallery-btn right" onclick="scrollGallery(this, 'right')">
+                    <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18" /></svg>
+                </button>
+                <div class="city-gallery">
+                    <div class="photo-item">
+                        <img src="https://www.image2url.com/r2/default/images/1783776018264-9fc2c5b9-ffbb-42e4-a7e9-c5aaa3af54aa.png" alt="首爾1" />
+                        <div class="photo-caption">國立現代美術館 국립현대미술관</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://www.image2url.com/r2/default/images/1783776459702-c8012e22-00bf-4dd9-bee1-47e71806574e.png" alt="首爾2" />
+                        <div class="photo-caption">買明洞爺爺幸運草</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://www.image2url.com/r2/default/images/1783776610378-742ee197-7d72-442f-931b-359f998248d7.png" alt="首爾3" />
+                        <div class="photo-caption">晚上搭免費接駁上首爾塔，順便看夜景</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://www.image2url.com/r2/default/images/1783776720674-61514d22-5902-4b53-9500-9078180d833a.png" alt="首爾4" />
+                        <div class="photo-caption">很漂亮，所以拍下來了</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://www.image2url.com/r2/default/images/1783776880924-c373717a-5f29-4eea-bd46-acdb3403aab3.png" alt="首爾5" />
+                        <div class="photo-caption">明洞</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://www.image2url.com/r2/default/images/1783776976005-18f61549-5e0a-4cf4-85e3-b727fb11bee4.png" alt="首爾6" />
+                        <div class="photo-caption">國立民俗博物館</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://www.image2url.com/r2/default/images/1783777585739-5832bc72-f392-4227-91e6-c26dde7632e8.png" alt="首爾7" />
+                        <div class="photo-caption">KAHI HOUSE（KAHI 한옥）</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://www.image2url.com/r2/default/images/1783839905879-fc61f139-8066-4eec-8455-023ecdce26c3.png" alt="首爾8" />
+                        <div class="photo-caption">首爾韓屋村</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 慶洲 ===== -->
+        <div class="city-block">
+            <div class="city-name"><span class="emoji">🌉</span>慶洲 · 皇理團路</div>
+            <p class="city-desc">千年古都的寧靜，在皇理團路感受傳統與現代的交織。</p>
+            <div class="gallery-wrapper">
+                <button class="gallery-btn left" onclick="scrollGallery(this, 'left')">
+                    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6" /></svg>
+                </button>
+                <button class="gallery-btn right" onclick="scrollGallery(this, 'right')">
+                    <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18" /></svg>
+                </button>
+                <div class="city-gallery">
+                    <div class="photo-item">
+                        <img src="https://cdn.phototourl.com/member/2026-07-10-5b5ce8f4-43f9-488f-b1e6-88edaf512265.png" alt="慶洲1" />
+                        <div class="photo-caption">慶洲校村·月精橋 晚上去超美</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://cdn.phototourl.com/member/2026-07-12-8b89177e-ad71-4b81-bb5e-5bdcf4a7c71f.png" alt="慶洲2" />
+                        <div class="photo-caption">皇理團路街上</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://cdn.phototourl.com/member/2026-07-12-d883ac0e-1de8-4eef-9b86-5e77556ea4f1.png" alt="慶洲3" />
+                        <div class="photo-caption">在皇理團路抽幸運籤</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://cdn.phototourl.com/member/2026-07-12-0f600e3e-455e-40e0-ba39-f4457fdf508d.png" alt="慶洲4" />
+                        <div class="photo-caption">一間咖哩店外很漂亮的設計</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://cdn.phototourl.com/member/2026-07-12-f0205b0c-bbc4-4db3-8cf3-3a6de8e5d55d.png" alt="慶洲5" />
+                        <div class="photo-caption">很特別的 olive young</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://cdn.phototourl.com/member/2026-07-12-771219a6-9570-4663-a4b1-f607a3655ce3.png" alt="慶洲6" />
+                        <div class="photo-caption">很好吃的炸玉米</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://cdn.phototourl.com/member/2026-07-12-98f4fd4e-b173-4c19-a12b-ed73438dad7f.png" alt="慶洲7" />
+                        <div class="photo-caption">走路太累，找一間咖啡廳休息</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://cdn.phototourl.com/member/2026-07-12-9e248739-9da2-4fd7-8cf2-2b1a576610da.png" alt="慶洲8" />
+                        <div class="photo-caption">午餐吃咖哩飯</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://cdn.phototourl.com/member/2026-07-12-1029b51b-bbd0-413f-8817-726a95f0f4d9.png" alt="慶洲9" />
+                        <div class="photo-caption">一個人騎腳踏車，很安靜</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 蔚山 · 大王岩公園 ===== -->
+        <div class="city-block">
+            <div class="city-name"><span class="emoji">🏞️</span>蔚山 · 大王岩公園</div>
+            <p class="city-desc">東海之濱的寧靜，在大王岩公園感受海與山的對話。</p>
+            <div class="gallery-wrapper">
+                <button class="gallery-btn left" onclick="scrollGallery(this, 'left')">
+                    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6" /></svg>
+                </button>
+                <button class="gallery-btn right" onclick="scrollGallery(this, 'right')">
+                    <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18" /></svg>
+                </button>
+                <div class="city-gallery">
+                    <div class="photo-item">
+                        <img src="https://cdn.phototourl.com/member/2026-07-12-5cefb719-3eaf-44e2-a22f-9c4a2edd29aa.png" alt="蔚山1" />
+                        <div class="photo-caption">這張照片適合做語錄</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://www.image2url.com/r2/default/images/1783842772526-6288827a-18a0-4441-9603-ff6b01752621.png" alt="蔚山2" />
+                        <div class="photo-caption">只有單線道的吊橋</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://www.image2url.com/r2/default/images/1783842753570-f97c9cd1-1781-462b-9995-5e3109e3b460.png" alt="蔚山3" />
+                        <div class="photo-caption">很安靜的地方</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://www.image2url.com/r2/default/images/1783842739708-9a5b43de-b123-464a-a29a-603331299aa3.png" alt="蔚山4" />
+                        <div class="photo-caption">器具都有的公園健身區</div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="https://www.image2url.com/r2/default/images/1783842723871-a56d79d8-6260-46e3-a54d-61e69fef138f.png" alt="蔚山5" />
+                        <div class="photo-caption">海對面是座城市</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 回到首頁 -->
+        <div class="back-home">
+            <a href="index.html"> 回到首頁</a>
+        </div>
+
+        <div class="footer">
+            <p>✈️ 繼續出發，故事未完待續 ⋯⋯</p>
+            <p style="margin-top:6px;">
+                 聯繫我：<a href="mailto:amuy930315@email.com">amuy930315@email.com</a>
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        function scrollGallery(btn, direction) {
+            const wrapper = btn.closest('.gallery-wrapper');
+            const gallery = wrapper.querySelector('.city-gallery');
+            const firstItem = gallery.querySelector('.photo-item');
+            if (!firstItem) return;
+            const scrollAmount = firstItem.offsetWidth + 14;
+            if (direction === 'left') {
+                gallery.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            } else {
+                gallery.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            const galleries = document.querySelectorAll('.city-gallery');
+            let targetGallery = null;
+            for (const g of galleries) {
+                const rect = g.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    targetGallery = g;
+                    break;
+                }
+            }
+            if (!targetGallery) return;
+            const firstItem = targetGallery.querySelector('.photo-item');
+            if (!firstItem) return;
+            const scrollAmount = firstItem.offsetWidth + 14;
+            if (e.key === 'ArrowLeft') {
+                targetGallery.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                e.preventDefault();
+            } else if (e.key === 'ArrowRight') {
+                targetGallery.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                e.preventDefault();
+            }
+        });
+    </script>
+
+</body>
+</html>
