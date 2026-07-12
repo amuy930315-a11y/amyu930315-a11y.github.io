@@ -1,0 +1,407 @@
+ <!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🇰🇷 韓國獨旅小秘訣</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Serif TC', sans-serif;
+            background-color: #1A1614;
+            color: #F0E8E0;
+            padding: 0 20px;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 0 20px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            color: #F0E8E0;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: #C28A5C;
+            font-weight: 300;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #A8988A;
+            margin-left: 32px;
+            font-size: 16px;
+            font-weight: 400;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #C28A5C;
+        }
+
+        .nav-links a::after {
+            content: "·";
+            position: absolute;
+            right: -20px;
+            color: #3D322C;
+        }
+
+        .nav-links a:last-child::after {
+            content: "";
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #F0E8E0;
+        }
+
+        .page-header h1 span {
+            color: #C28A5C;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            color: #A8988A;
+            margin-top: 8px;
+        }
+
+        .tip-row {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            background: rgba(44, 37, 32, 0.4);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            padding: 20px 28px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.25s, border-color 0.25s;
+        }
+
+        .tip-row:hover {
+            transform: translateX(4px);
+            border-color: rgba(194, 138, 92, 0.2);
+        }
+
+        .tip-text {
+            flex: 1;
+        }
+
+        .tip-text .number {
+            font-size: 13px;
+            font-weight: 600;
+            color: #C28A5C;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .tip-text .icon {
+            font-size: 20px;
+            font-weight: 600;
+            color: #C28A5C;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .tip-text h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #F0E8E0;
+            margin-bottom: 4px;
+        }
+
+        .tip-text p {
+            color: #C4B8AC;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 0;
+        }
+
+        .tip-screenshots {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-shrink: 0;
+            width: 120px;
+        }
+
+        .tip-screenshots img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: transform 0.3s;
+            display: block;
+            cursor: pointer;
+        }
+
+        .tip-screenshots img:hover {
+            transform: scale(1.04);
+        }
+
+        .tip-image {
+            flex-shrink: 0;
+            width: 160px;
+            height: 120px;
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .tip-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .tip-image img:hover {
+            transform: scale(1.04);
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .back-home a {
+            display: inline-block;
+            background: #C28A5C;
+            color: #1A1614;
+            text-decoration: none;
+            padding: 12px 36px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 4px 20px rgba(194, 138, 92, 0.25);
+        }
+
+        .back-home a:hover {
+            background: #D9A87A;
+            transform: scale(1.02);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 10px;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: #7A6A5E;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #C28A5C;
+            text-decoration: none;
+        }
+
+        /* ===== 燈箱 ===== */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            padding: 30px;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            animation: zoomIn 0.25s ease;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.85);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                flex-direction: column;
+                align-items: center;
+            }
+            .nav-links a {
+                margin: 0 14px;
+                font-size: 15px;
+            }
+            .nav-links a::after {
+                right: -16px;
+            }
+            .page-header h1 {
+                font-size: 30px;
+            }
+
+            .tip-row {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+                gap: 14px;
+            }
+
+            .tip-screenshots {
+                flex-direction: row;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .tip-screenshots img {
+                width: 80px;
+            }
+
+            .tip-image {
+                width: 100%;
+                height: 160px;
+            }
+
+            .tip-text .number {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <nav class="navbar">
+            <div class="logo"> <span>·</span> 我的獨旅日記</div>
+            <div class="nav-links">
+                <a href="index.html">🏠 首頁</a>
+                <a href="index.html#about">關於我</a>
+                <a href="index.html#photos">國家</a>
+                <a href="korea-tips.html" style="color:#C28A5C; font-weight:600;">🇰🇷 秘訣</a>
+            </div>
+        </nav>
+
+        <div class="page-header">
+            <h1>🇰🇷 韓國 <span>獨旅小秘訣</span></h1>
+            <p>我只帶了一張卡和手機。</p>
+        </div>
+
+        <!-- 秘訣 1 -->
+        <div class="tip-row">
+            <div class="tip-text">
+                <span class="number">01</span>
+                <span class="icon">📍 地圖 + 交通時刻表</span>
+                <h3>APP：Naver Map</h3>
+                <p>在韓國，Google Maps 幾乎是廢的。Naver Map 都有交通時刻表，找路超方便。</p>
+            </div>
+            <div class="tip-screenshots">
+                <img src="https://www.image2url.com/r2/default/images/1783864142672-81d25873-271a-431f-b65e-01a770290731.png" />
+                <img src="https://www.image2url.com/r2/default/images/1783864529780-1fa530ea-2097-4f05-8ab2-d160d07c99fe.png" />
+                <img src="https://www.image2url.com/r2/default/images/1783864571295-8aebad79-79bc-4bba-96f7-217af5357d04.png" />
+            </div>
+        </div>
+
+        <!-- 秘訣 2 -->
+        <div class="tip-row">
+            <div class="tip-text">
+                <span class="number">02</span>
+                <span class="icon">💳</span>
+                <h3>WOW PASS卡</h3>
+                <p>地鐵、公車、便利商店都能用，直接手機加值方便，可直接在超商買。</p>
+            </div>
+            <div class="tip-screenshots">
+                <img src="https://www.image2url.com/r2/default/images/1783865034660-f3f4c46c-7b14-45a9-8f45-818d6b0edd02.png" />
+                <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEXEMlqU6Cc1y5FbcNjVLJesC4O42nBwgACdB4AApZHoFbg44-S-KA-LTwE.png" />
+                <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEXEMpqU6DebBUhOMqfBUkNnhGbcxFgkAACeB4AApZHoFYfRQ-0HZe_6TwE.png" />
+            </div>
+        </div>
+
+        <div class="back-home">
+            <a href="index.html"> 回到首頁</a>
+        </div>
+
+        <div class="footer">
+            <p>✈️ 繼續出發，故事未完待續 ⋯⋯</p>
+            <p style="margin-top:6px;">
+                聯繫我：<a href="mailto:amuy930315@email.com">amuy930315@email.com</a>
+            </p>
+        </div>
+
+    </div>
+
+    <!-- ===== 燈箱 ===== -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <img id="lightboxImg" src="" alt="放大檢視" />
+    </div>
+
+    <script>
+        function openLightbox(imgElement) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            lightboxImg.src = imgElement.src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+
+</body>
+</html>
